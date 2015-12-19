@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title></title>
+  <script type="application/javascript">
+    function draw() {
+      var ctx = document.getElementById("canvas").getContext("2d");
+      var img = new Image();
+      img.onload = function() {
+        ctx.canvas.width = img.width
+        ctx.canvas.height = img.height
+        ctx.fillStyle = "rgb(0,0,0)";
+        // ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        ctx.drawImage(img, 0, 0);
+      };
+      img.src = './imgs/2.JPG'
+    }
+  </script>
+</head>
+<body onload="draw();">
+  <canvas id="canvas" width="200" height="150"></canvas>
+</body>
+</html>
