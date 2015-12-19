@@ -10,7 +10,8 @@
 8. [x] 在 canvas 中显示用户上传的图片
 9. [x] 适配移动端的屏幕（基于 1）
 10. [x] 控制 canvas 的样式和大小（基于 7）
-11. [ ] hammer.js
+11. [x] hammer.js demo usage
+12.
 
 ## 02
 
@@ -65,3 +66,9 @@ refs:
 
 -[Using the viewport meta tag to control layout on mobile browsers - Mozilla | MDN](https://developer.mozilla.org/en-US/docs/Mozilla/Mobile/Viewport_meta_tag)
 - [2048](https://gabrielecirulli.github.io/2048/)
+
+## 11
+
+Hammer.js 的 API 超级好用，Event 对象里面包含了差不多所有的需要的东西。
+
+ref: [API - Hammer.js](http://hammerjs.github.io/api/)

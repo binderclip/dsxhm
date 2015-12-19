@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <style type="text/css">
+    #myElement {
+      background: silver;
+      height: 300px;
+      text-align: center;
+      font: 30px/300px Helvetica, Arial, sans-serif;
+      max-width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <script src="./js/hammer.js"></script>
+  <div id="myElement"></div>
+  <h3 id='message'></h3>
+  <script type="text/javascript">
+    var myElement = document.getElementById('myElement');
+    var message = document.getElementById('message');
+
+    // create a simple instance
+    // by default, it only adds horizontal recognizers
+    var mc = new Hammer(myElement);
+    mc.get('pinch').set({ enable: true });
+    // mc.get('rotate').set({ enable: true });
+
+    // listen to events...
+    mc.on("pinch rotate", function(ev) {
+      message.textContent = ev.type + '\n' + ev.scale + '\n' + ev.rotation + '\ndeltaX: ' + ev.deltaX + '\ndeltaY' + ev.deltaY;
+    });
+  </script>
+</body>
+</html>
