@@ -7,7 +7,9 @@
 5. [x] 用 `<canvas>` 显示出两张图片
 6. [x] 用代码强行拼一个戴帽子的图案出来
 7. [x] 提供一个图片的下载链接
-8. [ ] 在 canvas 中显示用户上传的图片
+8. [x] 在 canvas 中显示用户上传的图片
+9. [x] 适配移动端的屏幕（基于 1）
+10. [ ] 控制 canvas 的样式和大小（基于 7）
 
 ## 02
 
@@ -53,3 +55,12 @@ refs:
 key: read file from input
 
 ref: [javascript - Can I load a local file into an html canvas element? - Stack Overflow](http://stackoverflow.com/questions/13938686/can-i-load-a-local-file-into-an-html-canvas-element)
+
+## 09
+
+key: viewport
+
+refs:
+
+-[Using the viewport meta tag to control layout on mobile browsers - Mozilla | MDN](https://developer.mozilla.org/en-US/docs/Mozilla/Mobile/Viewport_meta_tag)
+- [2048](https://gabrielecirulli.github.io/2048/)
