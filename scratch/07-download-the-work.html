@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title></title>
+  <script type="application/javascript">
+    function draw() {
+      var ctx = document.getElementById("canvas").getContext("2d");
+      var imgAvatar = new Image();
+      imgAvatar.crossOrigin = "*";
+      imgAvatar.onload = function() {
+        ctx.canvas.width = imgAvatar.width
+        ctx.canvas.height = imgAvatar.height
+        ctx.fillStyle = "rgb(0,0,0)";
+        // ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        ctx.drawImage(imgAvatar, 0, 0);
+        drawHat();
+      };
+      imgAvatar.src = './imgs/2.JPG';
+
+      function drawHat() {
+        var imgHat = new Image();
+        imgHat.crossOrigin = "*";
+        imgHat.onload = function() {
+          var scaleX = ctx.canvas.width / imgHat.width
+          var scaleY = ctx.canvas.height / imgHat.height
+          var fitScale = Math.min(scaleX, scaleY)
+          fitScale /= 3;
+
+          ctx.save();
+          ctx.scale(fitScale, fitScale);
+          ctx.translate(550, 250);          // 1 translate
+          ctx.rotate(((Math.PI/180)*25));   // 2 rotate
+          ctx.translate(-550, -250);        // 3 translate back
+          ctx.drawImage(imgHat, 660, -80);
+          ctx.restore();
+
+          generateDownloadUrl();
+        };
+        imgHat.src = './imgs/h2.png';
+      }
+
+      function generateDownloadUrl() {
+        dataURL = ctx.canvas.toDataURL('image/png');
+        downloadA = document.getElementById("download-link");
+        downloadA.href = dataURL;
+        downloadA.download = 'your-xhm-work.png';
+
+        workImg = document.getElementById("work-img");
+        workImg.src = dataURL;
+      }
+    }
+  </script>
+</head>
+<body onload="draw();">
+  <canvas id="canvas" width="200" height="150"></canvas>
+  <a id="download-link" href="">Click Me to Download</a>
+  <img id="work-img" src="">
+</body>
+</html>
