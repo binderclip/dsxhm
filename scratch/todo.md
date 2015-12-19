@@ -5,7 +5,8 @@
 3. [x] 要显示的图片要能放到 canvas 里面
 4. [x] 要能根据图片的大小调整 canvas 的尺寸
 5. [x] 用 `<canvas>` 显示出两张图片
-6. [ ] 用代码强行拼一个戴帽子的图案出来
+6. [x] 用代码强行拼一个戴帽子的图案出来
+7. [ ] 提供一个图片的下载链接
 
 ## 02
 
@@ -24,3 +25,9 @@ key: `ctx.canvas.width`
 ## 05
 
 key: 03 + 04
+
+## 06
+
+key: translate & rotate
+
+ref: [Transformations - Web APIs | MDN](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Transformations)
