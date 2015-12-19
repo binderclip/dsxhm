@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title></title>
+  <script type="application/javascript">
+    function draw() {
+      var ctx = document.getElementById("canvas").getContext("2d");
+      var imgAvatar = new Image();
+      imgAvatar.onload = function() {
+        ctx.canvas.width = imgAvatar.width
+        ctx.canvas.height = imgAvatar.height
+        ctx.fillStyle = "rgb(0,0,0)";
+        // ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        ctx.drawImage(imgAvatar, 0, 0);
+        drawHat();
+      };
+      imgAvatar.src = './imgs/2.JPG';
+
+      function drawHat() {
+        var imgHat = new Image();
+        imgHat.onload = function() {
+          var scaleX = ctx.canvas.width / imgHat.width
+          var scaleY = ctx.canvas.height / imgHat.height
+          var fitScale = Math.min(scaleX, scaleY)
+          fitScale /= 4;
+
+          ctx.save();
+          ctx.scale(fitScale, fitScale);
+          ctx.drawImage(imgHat, 0, 0);
+          ctx.restore();
+        };
+        imgHat.src = './imgs/h2.png';
+      }
+    }
+  </script>
+</head>
+<body onload="draw();">
+  <canvas id="canvas" width="200" height="150"></canvas>
+</body>
+</html>
