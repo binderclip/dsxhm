@@ -11,7 +11,7 @@
 9. [x] 适配移动端的屏幕（基于 1）
 10. [x] 控制 canvas 的样式和大小（基于 7）
 11. [x] hammer.js demo usage
-12.
+12. [x] use hammer rotate and rize hat (based on 6 & 11)
 
 ## 02
 
