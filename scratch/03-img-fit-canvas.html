@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title></title>
+  <script type="application/javascript">
+    function draw() {
+      var ctx = document.getElementById("canvas").getContext("2d");
+      var height = ctx.canvas.height
+      var width = ctx.canvas.width
+      ctx.fillStyle = "rgb(0,0,0)";
+      ctx.fillRect (0, 0, width, height);
+      var img = new Image();
+      img.onload = function() {
+        var scaleX = width / img.width
+        var scaleY = height / img.height
+        var fitScale = Math.min(scaleX, scaleY)
+
+        ctx.save();
+        ctx.scale(fitScale, fitScale);
+        ctx.drawImage(img, 0, 0);
+        ctx.restore();
+      };
+      img.src = './imgs/2.JPG'
+    }
+  </script>
+</head>
+<body onload="draw();">
+  <canvas id="canvas" width="200" height="150"></canvas>
+</body>
+</html>
