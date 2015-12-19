@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title></title>
+  <script type="application/javascript">
+    function draw() {
+
+      var img = new Image();
+      img.onload = function() {
+        var scaleX = width / img.width;
+        var scaleY = height / img.height
+        var fitScale = Math.min(scaleX, scaleY)
+
+        ctx.save();
+        ctx.scale(fitScale, fitScale);
+        ctx.drawImage(img, 0, 0);
+        ctx.restore();
+      };
+      img.src = './imgs/2.JPG'
+    }
+
+  </script>
+</head>
+<body>
+  <canvas id="canvas" width="200" height="150"></canvas>
+  <input id="input-image" type="file" name="pic" accept="image/*" onchange="afterSelectImage">
+
+  <script>
+    var ctx = document.getElementById("canvas").getContext("2d");
+    var height = ctx.canvas.height;
+    var width = ctx.canvas.width;
+    ctx.fillStyle = "rgb(0,0,0)";
+    ctx.fillRect (0, 0, width, height);
+
+    var input = document.getElementById("input-image");
+    input.onchange = function () {
+      var file = input.files[0];
+      var fr = new FileReader();
+      fr.onload = createImage;   // onload fires after reading is complete
+      fr.readAsDataURL(file);    // begin reading
+
+      function createImage() {
+        var img = new Image();
+        img.onload = function() {
+          var scaleX = width / img.width;
+          var scaleY = height / img.height
+          var fitScale = Math.min(scaleX, scaleY)
+
+          ctx.save();
+          ctx.scale(fitScale, fitScale);
+          ctx.drawImage(img, 0, 0);
+          ctx.restore();
+        };
+        img.src = fr.result;
+      }
+    }
+  </script>
+</body>
+</html>

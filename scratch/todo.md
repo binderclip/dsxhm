@@ -47,3 +47,9 @@ refs:
   - [<a> - HTML (HyperText Markup Language) | MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-download)
 - PS. 微信分享的 JS API
   - [微信内置浏览器的JsAPI(WeixinJSBridge续)_Alien的笔记](http://www.baidufe.com/item/f07a3be0b23b4c9606bb.html)
+
+## 08
+
+key: read file from input
+
+ref: [javascript - Can I load a local file into an html canvas element? - Stack Overflow](http://stackoverflow.com/questions/13938686/can-i-load-a-local-file-into-an-html-canvas-element)
