@@ -19,7 +19,7 @@ ref: [Transformations - Web APIs | MDN](https://developer.mozilla.org/en-US/docs
 
 ## 04
 
-key: `ctx.canvas.heitht`
+key: `ctx.canvas.width`
 
 ## 05
 
