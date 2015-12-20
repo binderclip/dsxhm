@@ -12,6 +12,8 @@
 10. [x] 控制 canvas 的样式和大小（基于 7）
 11. [x] hammer.js demo usage
 12. [x] use hammer rotate and rize hat (based on 6 & 11)
+13. [x] 整理代码
+14. [ ] 能够上传头像
 
 ## 02
 
