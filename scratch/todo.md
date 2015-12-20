@@ -13,7 +13,8 @@
 11. [x] hammer.js demo usage
 12. [x] use hammer rotate and rize hat (based on 6 & 11)
 13. [x] 整理代码
-14. [ ] 能够上传头像
+14. [x] 能够上传头像并进行操作
+15. [ ] 显示两个可选的帽子
 
 ## 02
 
