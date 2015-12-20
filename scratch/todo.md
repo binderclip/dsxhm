@@ -17,12 +17,13 @@
 15. [x] 显示两个可选的帽子
 16. [x] 可以生成下载用的图片
 17. [x] 加入更多的帽子
-18. [ ] 可以双击镜像帽子
+18. [x] 可以单击镜像帽子
 
 
 - 发布
   - git page?
   - 更改默认图
+  - 访问次数统计
 - 功能优化
   - `pan` 的时候门限值太大
 - 长按动作优化
@@ -92,3 +93,9 @@ refs:
 Hammer.js 的 API 超级好用，Event 对象里面包含了差不多所有的需要的东西。
 
 ref: [API - Hammer.js](http://hammerjs.github.io/api/)
+
+## 18
+
+key: mirror = scale + translate
+
+ref: [Transformations - Web APIs | MDN](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Transformations)

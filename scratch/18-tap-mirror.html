@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title></title>
+  <style type="text/css">
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #faf8ef;
+    color: #443e35;
+    font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
+    font-size: 14px;
+  }
+  .hats {
+    width: 30%;
+  }
+  img {
+    width: 100%;
+  }
+  canvas {
+    width: 100%;
+  }
+  </style>
+</head>
+<body>
+  <script src="./js/hammer.js"></script>
+  <canvas id="canvas" width="200" height="150"><h1>要是看到了这行字应该是你的手机的浏览器不支持 canvas，所以用不了这个了抱歉，不如找一个朋友帮你弄一下吧！</h1></canvas>
+  <canvas id="canvas-hat-backstage" style="display:none;"></canvas>
+  <p>1. 上传你的头像 <input id="input-image" type="file" name="pic" accept="image/*" value="选择你的头像"></p>
+  <p>2. 选择帽子</p>
+  <img src="./imgs/h1.png" class="hats" onclick="setHat(this.src)">
+  <img src="./imgs/h2.png" class="hats" onclick="setHat(this.src)">
+  <img src="./imgs/h3.png" class="hats" onclick="setHat(this.src)">
+  <img src="./imgs/h4.png" class="hats" onclick="setHat(this.src)">
+  <img src="./imgs/h5.png" class="hats" onclick="setHat(this.src)">
+  <img src="./imgs/h6.png" class="hats" onclick="setHat(this.src)">
+  <img src="./imgs/h7.png" class="hats" onclick="setHat(this.src)">
+  <img src="./imgs/h8.png" class="hats" onclick="setHat(this.src)">
+  <img src="./imgs/h9.png" class="hats" onclick="setHat(this.src)">
+  <p>3. 戴上帽子（可以单击翻转，滑动移动，双指缩放、旋转哟）
+  <p>4. 点击：<button onclick="generateWork()">⬇⬇ 生成 ⬇⬇</button> 然后长按下面的图片保存</p>
+  <img id="img-work" src="">
+  <!-- <h3 id='message'></h3> -->
+  <script type="text/javascript">
+    var hatScaleNenner;
+    var hatRotate;
+    var hatCenterX;
+    var hatCenterY;
+
+    var hatScaleNennerTemp;
+    var hatRotateTemp;
+    var hatCenterTempX;
+    var hatCenterTempY;
+
+    resetHatPos();
+
+    var ctx = document.getElementById("canvas").getContext("2d");
+
+    var imgAvatar = new Image();
+    var imgHat = new Image();
+
+    var imgAvatarLoaded = false;
+    var imgHatLoaded = false;
+
+    function loadAvatar(src) {
+      imgAvatarLoaded = false;
+      imgAvatar.onload = function() {
+        imgAvatarLoaded = true;
+        draw();
+      };
+      imgAvatar.src = src ? src : './imgs/2.JPG';
+    }
+
+    function loadHat(src) {
+      imgHatLoaded = false;
+      imgHat.onload = function() {
+        imgHatLoaded = true;
+        draw();
+      };
+      imgHat.src = src ? src : './imgs/h2.png';
+    }
+
+    function resetHatPos() {
+      hatScaleNenner = 3;
+      hatRotate = 0;
+      hatCenterX = window.screen.width / 2;
+      hatCenterY = 150;
+
+      hatScaleNennerTemp = hatScaleNenner;
+      hatRotateTemp = hatRotate;
+      hatCenterTempX = hatCenterX;
+      hatCenterTempY = hatCenterTempY;
+    }
+
+    function mirrorHatImg () {
+      var ctx_backstage = document.getElementById("canvas-hat-backstage").getContext("2d");
+      ctx_backstage.canvas.width = imgHat.width;
+      ctx_backstage.canvas.height = imgHat.height;
+      ctx_backstage.save();
+      ctx_backstage.translate(ctx_backstage.canvas.width, 0);
+      ctx_backstage.scale(-1, 1);
+      ctx_backstage.drawImage(imgHat, 0, 0);
+      ctx_backstage.restore();
+
+      dataURL = ctx_backstage.canvas.toDataURL('image/png');
+      imgHat.src = dataURL;
+    }
+
+    function draw() {
+      if (imgAvatarLoaded) {
+        ctx.canvas.width = imgAvatar.width;
+        ctx.canvas.height = imgAvatar.height;
+        ctx.fillStyle = "rgb(0,0,0)";
+        // ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        ctx.drawImage(imgAvatar, 0, 0);
+      }
+      if (imgAvatarLoaded && imgHatLoaded) {
+        var scaleX = ctx.canvas.width / imgHat.width;
+        var scaleY = ctx.canvas.height / imgHat.height;
+        var fitScale = Math.min(scaleX, scaleY);
+        fitScale /= hatScaleNenner;
+        // change to image size
+        hatCenterXIS = hatCenterX / window.screen.width * ctx.canvas.width / fitScale;
+        hatCenterYIS = hatCenterY / window.screen.width * ctx.canvas.height / fitScale;
+        var realX = hatCenterXIS * Math.cos((Math.PI/180)*hatRotate) + hatCenterYIS * Math.sin((Math.PI/180)*hatRotate) - imgHat.width / 2;
+        var realY = hatCenterYIS * Math.cos((Math.PI/180)*hatRotate) - hatCenterXIS * Math.sin((Math.PI/180)*hatRotate) - imgHat.height / 2;
+        ctx.save();
+        ctx.scale(fitScale, fitScale);
+        ctx.rotate((Math.PI/180)*hatRotate);
+        ctx.drawImage(imgHat, realX, realY);
+        ctx.restore();
+      }
+    }
+
+    // set up gesture
+    (function() {
+      var myElement = ctx.canvas;
+      // var message = document.getElementById('message');
+
+      // create a simple instance
+      // by default, it only adds horizontal recognizers
+      var mc = new Hammer(myElement);
+
+      mc.get('pinch').set({ enable: true });
+      mc.get('pan').set({ threshold: 7 });
+      // listen to events...
+      mc.on("panstart", function(ev) {
+        hatCenterTempX = hatCenterX;
+        hatCenterTempY = hatCenterY;
+      });
+      mc.on("panmove", function(ev) {
+        hatCenterX = hatCenterTempX + ev.deltaX;
+        hatCenterY = hatCenterTempY + ev.deltaY;
+        draw();
+      });
+      mc.on("panend", function(ev) {
+        hatCenterTempX = hatCenterX;
+        hatCenterTempY = hatCenterY;
+      });
+
+      mc.on("pinchstart", function(ev) {
+        hatScaleNennerTemp = hatScaleNenner;
+        hatRotateTemp = hatRotate;
+        hatCenterTempX = hatCenterX;
+        hatCenterTempY = hatCenterY;
+      });
+      mc.on("pinchmove", function(ev) {
+        hatScaleNenner = hatScaleNennerTemp / ev.scale;
+        hatRotate = hatRotateTemp + ev.rotation;
+        hatCenterX = hatCenterTempX + ev.deltaX;
+        hatCenterY = hatCenterTempY + ev.deltaY;
+        draw();
+      });
+      mc.on("pinchend", function(ev) {
+        hatScaleNennerTemp = hatScaleNenner;
+        hatCenterTempX = hatCenterX;
+        hatCenterTempY = hatCenterY;
+      });
+
+      mc.on("tap", function(ev) {
+        mirrorHatImg();
+        draw();
+      });
+
+      // for debug
+      // mc.on("pinch rotate pan", function(ev) {
+      //   message.textContent = ev.type + '\n' + ev.scale + '\n' + ev.rotation + '\ndeltaX: ' + ev.deltaX + '\ndeltaY' + ev.deltaY;
+      // });
+    })();
+
+    (function () {
+      var input = document.getElementById("input-image");
+      input.onchange = function () {
+        var file = input.files[0];
+        var fr = new FileReader();
+        // onload fires after reading is complete
+        fr.onload = function () {
+          loadAvatar(fr.result);
+        }
+        fr.readAsDataURL(file);    // begin reading
+      }
+    })();
+
+    function setHat(src) {
+      resetHatPos();
+      loadHat(src);
+    }
+
+    function generateWork() {
+      dataURL = ctx.canvas.toDataURL('image/png');
+
+      imgWork = document.getElementById("img-work");
+      imgWork.src = dataURL;
+    }
+
+    loadAvatar();
+    loadHat();
+    draw();
+  </script>
+</body>
+</html>
